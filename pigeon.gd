@@ -2,10 +2,10 @@ extends HTTPRequest
 
 @export var current_version:String = ""
 
-const GAME_URL:String = "https://api.github.com/repos/Sparrowworks/Pigeon/releases/latest"
+const PCK_URL:String = "https://api.github.com/repos/Sparrowworks/Pigeon/releases/latest"
 
 func _ready() -> void:
-	var err:Error = request(GAME_URL)
+	var err:Error = request(PCK_URL)
 	if err != OK:
 		print("Failed to send request.")
 
