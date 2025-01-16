@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh6f7skmw86t1"]
+
+[ext_resource type="Script" path="res://pigeon.gd" id="1_jowyp"]
+
+[node name="Pigeon" type="HTTPRequest"]
+script = ExtResource("1_jowyp")
