@@ -5,6 +5,11 @@ extends HTTPRequest
 const PCK_URL:String = "https://api.github.com/repos/Sparrowworks/Pigeon/releases/latest"
 const TEMP_PCK_PATH:String = "user://update.pck"
 
+var pck_path:String
+func _init() -> void:
+	pck_path += OS.get_executable_path().get_base_dir() + "/" + ProjectSettings.get_setting("application/config/name") + ".pck"
+	print(pck_path)
+
 func _ready() -> void:
 	var err:Error = request(PCK_URL)
 	if err != OK:
