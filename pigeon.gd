@@ -20,6 +20,6 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 	
 	var latest_version:Dictionary = JSON.parse_string(body.get_string_from_utf8())
 	if current_version != latest_version["name"]:
-		print("Update Available! Downloading...")
+		print("Update Available! Installing...")
 	else:
 		print("You are using the latest version.")
