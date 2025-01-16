@@ -4,3 +4,6 @@
 
 [node name="Pigeon" type="HTTPRequest"]
 script = ExtResource("1_jowyp")
+current_version = "1.0.0"
+
+[connection signal="request_completed" from="." to="." method="_on_request_completed"]
