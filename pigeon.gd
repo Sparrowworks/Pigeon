@@ -3,6 +3,7 @@ extends HTTPRequest
 @export var current_version:String = ""
 
 const PCK_URL:String = "https://api.github.com/repos/Sparrowworks/Pigeon/releases/latest"
+const TEMP_PCK_PATH:String = "user://update.pck"
 
 func _ready() -> void:
 	var err:Error = request(PCK_URL)
