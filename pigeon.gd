@@ -3,7 +3,8 @@ extends HTTPRequest
 @export var current_version:String = ""
 
 const PCK_URL:String = "https://api.github.com/repos/Sparrowworks/Pigeon/releases/latest"
-const TEMP_PCK_PATH:String = "user://update.pck"
+const NEW_PCK_BACKUP_PATH:String = "user://update.pck"
+const OLD_PCK_BACKUP_PATH:String = "user://old.pck"
 
 var pck_path:String
 func _init() -> void:
@@ -35,7 +36,10 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 				print("You are using the latest version.")
 		else:
 			print("Download complete, Installing...")
-			var file = FileAccess.open(TEMP_PCK_PATH, FileAccess.WRITE)
-			file.store_var(body)
+
+			var update_backup:FileAccess = FileAccess.open(NEW_PCK_BACKUP_PATH, FileAccess.WRITE)
+			update_backup.store_var(body)
+			update_backup.close()
+			print("New PCK backed up in: ", NEW_PCK_BACKUP_PATH)
 	else:
 		print("Download failed with result: " + str(result) + " and response code: " + str(response_code))
