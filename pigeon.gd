@@ -35,6 +35,7 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 				print("You are using the latest version.")
 		else:
 			print("Download complete, Installing...")
-			print(body.get_string_from_utf8())
+			var file = FileAccess.open(TEMP_PCK_PATH, FileAccess.WRITE)
+			file.store_var(body)
 	else:
 		print("Download failed with result: " + str(result) + " and response code: " + str(response_code))
