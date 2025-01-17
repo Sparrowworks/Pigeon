@@ -11,7 +11,7 @@ func _init() -> void:
 	print(pck_path)
 
 func _ready() -> void:
-	var err:Error = request(PCK_URL)
+	var err:Error = request(PCK_URL) # Fetch URL
 	if err != OK:
 		print("Failed to send request.")
 
@@ -28,8 +28,8 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 
 				download_url = latest_version["assets"][0]["browser_download_url"]
 				print(download_url)
-
 				request(download_url)
+
 				is_fetching = false
 			else:
 				print("You are using the latest version.")
