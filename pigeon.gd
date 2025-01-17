@@ -15,15 +15,24 @@ func _ready() -> void:
 	if err != OK:
 		print("Failed to send request.")
 
+var is_fetching:bool = true
 func _on_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result == 0 and response_code == 200:
-		print("Download complete")
-		
-		var latest_version:Dictionary = JSON.parse_string(body.get_string_from_utf8())
-		if current_version != latest_version["name"]:
-			print("Update Available! Installing...")
+		if is_fetching:
+			print("Fetching complete")
+
+			var latest_version:Dictionary = JSON.parse_string(body.get_string_from_utf8())
+			if current_version != latest_version["name"]:
+				print("Update Available! Downloading...")
+
+				var download_url:String = latest_version["assets"][0]["browser_download_url"]
+				print(download_url)
+			else:
+				print("You are using the latest version.")
 		else:
-			print("You are using the latest version.")
+			print("Download complete, Installing...")
+			var update:Dictionary = JSON.parse_string(body.get_string_from_utf8())
+			
+			print(update)
 	else:
 		print("Download failed with result: " + str(result) + " and response code: " + str(response_code))
-	
