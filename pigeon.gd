@@ -8,7 +8,7 @@ const OLD_PCK_BACKUP_PATH:String = "user://old.pck"
 
 var pck_path:String
 func _init() -> void:
-	pck_path += OS.get_executable_path().get_base_dir() + "/" + ProjectSettings.get_setting("application/config/name") + ".pck"
+	pck_path = OS.get_executable_path().get_base_dir() + "/" + ProjectSettings.get_setting("application/config/name") + ".pck"
 	print(pck_path)
 
 func _ready() -> void:
@@ -38,18 +38,20 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 			print("Download complete, Installing...")
 
 			var update_backup:FileAccess = FileAccess.open(NEW_PCK_BACKUP_PATH, FileAccess.WRITE)
-			update_backup.store_var(body)
+			update_backup.store_buffer(body)
 			update_backup.close()
 			print("New PCK backed up in: ", NEW_PCK_BACKUP_PATH)
 
-			var current_pck:FileAccess = FileAccess.open(pck_path, FileAccess.READ_WRITE)
-			if FileAccess.file_exists(pck_path):
-				var old_backup:FileAccess = FileAccess.open(OLD_PCK_BACKUP_PATH, FileAccess.WRITE)
-				old_backup.store_buffer(current_pck.get_buffer(current_pck.get_length()))
-				old_backup.close()
-				print("Old PCK backed up in: ", OLD_PCK_BACKUP_PATH)
+			if (FileAccess.file_exists(pck_path)):
+				var old_pck_backup:FileAccess = FileAccess.open(OLD_PCK_BACKUP_PATH, FileAccess.WRITE)
+				var file_to_clone:FileAccess = FileAccess.open(pck_path, FileAccess.READ)
+				old_pck_backup.store_buffer(file_to_clone.get_buffer(file_to_clone.get_length()))
+				file_to_clone.close()
+				old_pck_backup.close()
 
-			current_pck.store_var(body)
+			var current_pck:FileAccess = FileAccess.open(pck_path, FileAccess.WRITE)
+			DirAccess.remove_absolute(pck_path)
+			current_pck.store_buffer(body)
 			current_pck.close()
 			print("PCK Changed")
 	else:
