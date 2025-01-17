@@ -41,5 +41,16 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 			update_backup.store_var(body)
 			update_backup.close()
 			print("New PCK backed up in: ", NEW_PCK_BACKUP_PATH)
+
+			var current_pck:FileAccess = FileAccess.open(pck_path, FileAccess.READ_WRITE)
+			if FileAccess.file_exists(pck_path):
+				var old_backup:FileAccess = FileAccess.open(OLD_PCK_BACKUP_PATH, FileAccess.WRITE)
+				old_backup.store_buffer(current_pck.get_buffer(current_pck.get_length()))
+				old_backup.close()
+				print("Old PCK backed up in: ", OLD_PCK_BACKUP_PATH)
+
+			current_pck.store_var(body)
+			current_pck.close()
+			print("PCK Changed")
 	else:
 		print("Download failed with result: " + str(result) + " and response code: " + str(response_code))
