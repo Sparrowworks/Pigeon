@@ -65,6 +65,7 @@ func _on_download_button_pressed() -> void:
 
 func update_pck() -> void:
 	DirAccess.copy_absolute(download_file,path_to_pck)
+	DirAccess.remove_absolute(download_file)
 
 	found_text.text = "Game was updated. Click the button to restart it."
 
