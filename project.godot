@@ -10,14 +10,19 @@ config_version=5
 
 [application]
 
-config/name="Pigeon"
-run/main_scene="res://pigeon.tscn"
+config/name="AutoUpdater"
+config/version="0.0.0.1"
+run/main_scene="res://AutoUpdater.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="Pigeon"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg")
 
 [rendering]
 
