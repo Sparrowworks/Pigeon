@@ -1,7 +1,4 @@
-class_name AutoUpdater extends Node2D
-
-const NEW_PCK_BACKUP_PATH:String = "user://update.pck"
-const OLD_PCK_BACKUP_PATH:String = "user://old.pck"
+class_name AutoUpdater extends Control
 
 @export var current_version: String = "v" + ProjectSettings.get_setting("application/config/version")
 @export var pck_url: String = "https://api.github.com/repos/SP4R0W/AutoUpdater/releases/latest"
@@ -18,7 +15,6 @@ var download_file: String
 
 func _ready() -> void:
 	path_to_pck = OS.get_executable_path().get_base_dir() + "/" + ProjectSettings.get_setting("application/config/name") + ".pck"
-	print(path_to_pck)
 	version_text.text = current_version
 
 func _process(delta: float) -> void:
@@ -36,7 +32,6 @@ func _on_fetch_request_completed(result: int, response_code: int, headers: Packe
 
 			download_url = latest_version["assets"][0]["browser_download_url"]
 			download_file = "user://" + latest_version["assets"][0]["name"]
-			prints(download_url, download_file)
 		else:
 			found_text.text = "Already has the newest version."
 	else:
@@ -57,7 +52,6 @@ func _on_check_button_pressed() -> void:
 
 func _on_download_button_pressed() -> void:
 	download_request.download_file = download_file
-	print(download_request.download_file)
 	var error: Error = download_request.request(download_url)
 
 	if error != OK:
@@ -69,9 +63,9 @@ func update_pck() -> void:
 
 	found_text.text = "Game was updated. Click the button to restart it."
 
-	$CanvasLayer/UI/Panel/VBoxContainer/Control.hide()
-	$CanvasLayer/UI/Panel/VBoxContainer/Control2.hide()
-	$CanvasLayer/UI/Panel/VBoxContainer/Control3.show()
+	$Panel/VBoxContainer/Control.hide()
+	$Panel/VBoxContainer/Control2.hide()
+	$Panel/VBoxContainer/Control3.show()
 
 func _on_restart_button_pressed() -> void:
 	OS.set_restart_on_exit(true)

@@ -2,24 +2,20 @@
 
 [ext_resource type="Script" path="res://AutoUpdater.gd" id="1_0okfk"]
 
-[node name="AutoUpdater" type="Node2D"]
-script = ExtResource("1_0okfk")
-
-[node name="FetchRequest" type="HTTPRequest" parent="."]
-
-[node name="DownloadRequest" type="HTTPRequest" parent="."]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="AutoUpdater" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0okfk")
 
-[node name="VersionText" type="Label" parent="CanvasLayer/UI"]
+[node name="FetchRequest" type="HTTPRequest" parent="."]
+
+[node name="DownloadRequest" type="HTTPRequest" parent="."]
+
+[node name="VersionText" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -33,7 +29,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "v1.0.0.0"
 
-[node name="Panel" type="PanelContainer" parent="CanvasLayer/UI"]
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -47,27 +43,27 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 custom_minimum_size = Vector2(400, 300)
 layout_mode = 2
 theme_override_constants/separation = 35
 alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Panel/VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Check for Update?"
 horizontal_alignment = 1
 
-[node name="Found" type="Label" parent="CanvasLayer/UI/Panel/VBoxContainer"]
+[node name="Found" type="Label" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CanvasLayer/UI/Panel/VBoxContainer"]
+[node name="Control" type="Control" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="CheckButton" type="Button" parent="CanvasLayer/UI/Panel/VBoxContainer/Control"]
+[node name="CheckButton" type="Button" parent="Panel/VBoxContainer/Control"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -83,11 +79,11 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Check for Update"
 
-[node name="Control2" type="Control" parent="CanvasLayer/UI/Panel/VBoxContainer"]
+[node name="Control2" type="Control" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="DownloadButton" type="Button" parent="CanvasLayer/UI/Panel/VBoxContainer/Control2"]
+[node name="DownloadButton" type="Button" parent="Panel/VBoxContainer/Control2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -103,12 +99,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Download Update"
 
-[node name="Control3" type="Control" parent="CanvasLayer/UI/Panel/VBoxContainer"]
+[node name="Control3" type="Control" parent="Panel/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="RestartButton" type="Button" parent="CanvasLayer/UI/Panel/VBoxContainer/Control3"]
+[node name="RestartButton" type="Button" parent="Panel/VBoxContainer/Control3"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -126,6 +122,6 @@ text = "Restart Game"
 
 [connection signal="request_completed" from="FetchRequest" to="." method="_on_fetch_request_completed"]
 [connection signal="request_completed" from="DownloadRequest" to="." method="_on_download_request_completed"]
-[connection signal="pressed" from="CanvasLayer/UI/Panel/VBoxContainer/Control/CheckButton" to="." method="_on_check_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/Panel/VBoxContainer/Control2/DownloadButton" to="." method="_on_download_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/Panel/VBoxContainer/Control3/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Control/CheckButton" to="." method="_on_check_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Control2/DownloadButton" to="." method="_on_download_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Control3/RestartButton" to="." method="_on_restart_button_pressed"]
