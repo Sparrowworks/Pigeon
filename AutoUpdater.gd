@@ -56,6 +56,7 @@ func _on_check_button_pressed() -> void:
 		found_text.text = "Fetch error: " + str(error)
 
 func _on_download_button_pressed() -> void:
+	set_process(true)
 	pigeon.download_file = download_file
 	var error: Error = pigeon.request(download_url)
 
@@ -71,6 +72,9 @@ func update_pck() -> void:
 	$Panel/VBoxContainer/Control.hide()
 	$Panel/VBoxContainer/Control2.hide()
 	$Panel/VBoxContainer/Control3.show()
+
+func backup_old_pck() -> void:
+	pass
 
 func _on_restart_button_pressed() -> void:
 	OS.set_restart_on_exit(true)
