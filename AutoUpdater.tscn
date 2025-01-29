@@ -1,0 +1,124 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6if1x3aa3dcl"]
+
+[ext_resource type="Script" path="res://AutoUpdater.gd" id="1_0okfk"]
+
+[node name="AutoUpdater" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0okfk")
+
+[node name="Pigeon" type="HTTPRequest" parent="."]
+
+[node name="VersionText" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v1.0.0.0"
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+theme_override_constants/separation = 35
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Check for Update?"
+horizontal_alignment = 1
+
+[node name="Found" type="Label" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="CheckButton" type="Button" parent="Panel/VBoxContainer/Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.5
+offset_right = 100.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Check for Update"
+
+[node name="Control2" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="DownloadButton" type="Button" parent="Panel/VBoxContainer/Control2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.5
+offset_right = 100.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Download Update"
+
+[node name="Control3" type="Control" parent="Panel/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="Panel/VBoxContainer/Control3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.5
+offset_right = 100.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart Game"
+
+[connection signal="request_completed" from="Pigeon" to="." method="_on_pigeon_request_completed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Control/CheckButton" to="." method="_on_check_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Control2/DownloadButton" to="." method="_on_download_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Control3/RestartButton" to="." method="_on_restart_button_pressed"]
