@@ -11,9 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0okfk")
 
-[node name="FetchRequest" type="HTTPRequest" parent="."]
-
-[node name="DownloadRequest" type="HTTPRequest" parent="."]
+[node name="Pigeon" type="HTTPRequest" parent="."]
 
 [node name="VersionText" type="Label" parent="."]
 unique_name_in_owner = true
@@ -120,8 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Restart Game"
 
-[connection signal="request_completed" from="FetchRequest" to="." method="_on_fetch_request_completed"]
-[connection signal="request_completed" from="DownloadRequest" to="." method="_on_download_request_completed"]
+[connection signal="request_completed" from="Pigeon" to="." method="_on_pigeon_request_completed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Control/CheckButton" to="." method="_on_check_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Control2/DownloadButton" to="." method="_on_download_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Control3/RestartButton" to="." method="_on_restart_button_pressed"]
