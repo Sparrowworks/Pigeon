@@ -49,6 +49,7 @@ func _on_pigeon_request_completed(result: int, response_code: int, _headers: Pac
 		found_text.text = "Fetch/Download error: " + str(result) + "; " + str(response_code)
 
 func _on_check_button_pressed() -> void:
+	has_fetched = false
 	var error: Error = pigeon.request(pck_url)
 
 	if error != OK:
