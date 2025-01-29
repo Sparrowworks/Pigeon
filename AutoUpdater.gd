@@ -8,12 +8,14 @@ class_name AutoUpdater extends Control
 @onready var found_text: Label = %Found
 
 var path_to_pck: String
+var path_to_backup: String
 var download_url: String
 var download_file: String
 
 func _ready() -> void:
 	path_to_pck = OS.get_executable_path().get_base_dir() + "/" + ProjectSettings.get_setting("application/config/name") + ".pck"
 	version_text.text = current_version
+	path_to_backup = "user://" + ProjectSettings.get_setting("application/config/name") + "-old.pck"
 
 func _process(_delta: float) -> void:
 	if pigeon.get_body_size() > 0:
@@ -64,6 +66,7 @@ func _on_download_button_pressed() -> void:
 		found_text.text = "Download error: " + str(error)
 
 func update_pck() -> void:
+	backup_old_pck()
 	DirAccess.copy_absolute(download_file,path_to_pck)
 	DirAccess.remove_absolute(download_file)
 
@@ -74,7 +77,10 @@ func update_pck() -> void:
 	$Panel/VBoxContainer/Control3.show()
 
 func backup_old_pck() -> void:
-	pass
+	var err:Error = DirAccess.copy_absolute(path_to_pck, path_to_backup)
+	
+	if err != OK:
+		print("Could not backup old pck")
 
 func _on_restart_button_pressed() -> void:
 	OS.set_restart_on_exit(true)
