@@ -1,7 +1,7 @@
 class_name AutoUpdater extends Control
 
 @export var current_version: String = "v" + ProjectSettings.get_setting("application/config/version")
-@export var pck_url: String = "https://api.github.com/repos/SP4R0W/AutoUpdater/releases/latest"
+@export var pck_url: String = "https://api.github.com/repos/Sparrowworks/Pigeon/releases/latest"
 
 @onready var fetch_request: HTTPRequest = $FetchRequest
 @onready var download_request: HTTPRequest = $DownloadRequest
